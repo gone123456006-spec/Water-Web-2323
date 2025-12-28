@@ -217,3 +217,110 @@ Thank you.
   window.open(`https://wa.me/918974668938?text=${encoded}`, "_blank");
 }
 
+
+/* ===============================
+   CANVAS SETUP
+================================ */
+const canvas = document.getElementById("bubbleCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+/* ===============================
+   BOTTLE CENTER (EMISSION POINT)
+   Adjust X/Y to align with bottle
+================================ */
+let bottleX = () => canvas.width * 0.55;
+let bottleY = () => canvas.height * 0.78;
+
+/* ===============================
+   BUBBLE CLASS
+================================ */
+class Bubble{
+  constructor(x,y){
+    this.x = x + (Math.random()*30 - 15);
+    this.y = y;
+    this.radius = Math.random()*40 + 6;   // BIG + SMALL
+    this.speed = Math.random()*0.6 + 0.4;
+    this.wobble = Math.random()*2;
+    this.life = 1;
+    this.opacity = Math.random()*0.6 + 0.4;
+  }
+
+  update(){
+    this.y -= this.speed;
+    this.x += Math.sin(Date.now()*0.002 + this.wobble) * 0.4;
+
+    // Bubble pop near top
+    if(this.y < canvas.height * 0.15){
+      this.life -= 0.05;
+    }
+
+    if(this.life < 0) this.dead = true;
+  }
+
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius*this.life, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(180,230,255,${this.opacity*this.life})`;
+    ctx.fill();
+  }
+}
+
+/* ===============================
+   BUBBLE SYSTEM
+================================ */
+const bubbles = [];
+
+function emitBubble(){
+  if(bubbles.length < 120){
+    bubbles.push(new Bubble(bottleX(), bottleY()));
+  }
+}
+
+/* ===============================
+   MOUSE DISTURBANCE
+================================ */
+let mouse = {x:0,y:0};
+
+canvas.addEventListener("mousemove", e=>{
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+
+  bubbles.forEach(b=>{
+    const dx = b.x - mouse.x;
+    const dy = b.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+
+    if(dist < 120){
+      b.x += dx * 0.03;
+      b.y += dy * 0.03;
+    }
+  });
+});
+
+/* ===============================
+   ANIMATION LOOP
+================================ */
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  emitBubble();
+
+  bubbles.forEach((b,i)=>{
+    b.update();
+    b.draw();
+    if(b.dead) bubbles.splice(i,1);
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+

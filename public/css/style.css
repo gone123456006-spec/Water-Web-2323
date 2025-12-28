@@ -375,7 +375,7 @@ body{
   inset:0;
   background:linear-gradient(
     180deg,
-    rgba(10,40,70,.65),
+    rgba(29, 85, 150, 0.65),
     rgba(220,245,255,.95) 70%
   );
   z-index:1;
@@ -393,6 +393,30 @@ body{
   gap:70px;
   align-items:center;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ================= BOTTLE ================= */
 .bottle-wrap{
@@ -431,6 +455,35 @@ body{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ================= ENHANCED BUBBLES ================= */
 .hero-bubbles{
   position:absolute;
@@ -443,35 +496,57 @@ body{
 /* Base bubble */
 .hero-bubbles span{
   position:absolute;
-  bottom:-150px;
-  background:radial-gradient(circle at 30% 30%,
-    rgba(0, 86, 136, 0.95),
-    rgba(0,40,80,.25));
+  bottom:-160px;
+
+  /* Responsive sizing */
+  width:clamp(10px, 2.5vw, 42px);
+  height:clamp(10px, 2.5vw, 42px);
+
+ 
+
   border-radius:50%;
-  animation:bubbleUp linear infinite;
-  opacity:.8;
+  opacity:.75;
+
+  animation:bubbleUpDrift linear infinite;
+  will-change:transform;
+}
+.hero-bubbles span{
+  background:
+    radial-gradient(circle at 30% 30%,
+      rgba(255,255,255,0.95) 0%,
+      rgba(255,255,255,0.55) 10%,
+      rgba(200,235,255,0.25) 28%,
+      rgba(120,185,225,0.18) 45%,
+      rgba(40,90,140,0.12) 65%,
+      rgba(10,40,80,0.06) 80%,
+      rgba(0,20,40,0.02) 100%
+    );
+
+  box-shadow:
+    inset -6px -8px 14px rgba(255,255,255,0.45), /* top light */
+    inset 4px 4px 10px rgba(0,70,120,0.25),      /* depth */
+    0 10px 25px rgba(0,80,140,0.2);              /* water glow */
+
+  border-radius:50%;
+}
+.hero-bubbles span{
+  animation-timing-function: cubic-bezier(.4,0,.2,1);
+}
+.hero-bubbles span{
+  filter: blur(0.15px);
 }
 
-/* SMALL bubbles */
+
+/* Size + speed variation */
 .hero-bubbles span:nth-child(3n){
-  width:14px;
-  height:14px;
   animation-duration:14s;
 }
-
-/* MEDIUM bubbles */
 .hero-bubbles span:nth-child(3n+1){
-  width:26px;
-  height:26px;
   animation-duration:18s;
 }
-
-/* LARGE bubbles */
 .hero-bubbles span:nth-child(3n+2){
-  width:42px;
-  height:42px;
   animation-duration:22s;
-  opacity:.6;
+  opacity:.55;
 }
 
 /* Horizontal distribution */
@@ -494,27 +569,65 @@ body{
 .hero-bubbles span:nth-child(17){left:85%}
 .hero-bubbles span:nth-child(18){left:90%}
 
-/* Random delays */
+/* Direction variation */
+.hero-bubbles span:nth-child(odd){
+  --drift: -30px;
+  animation-delay:-4s;
+}
 .hero-bubbles span:nth-child(even){
+  --drift: 30px;
   animation-delay:-8s;
 }
 
-.hero-bubbles span:nth-child(odd){
-  animation-delay:-3s;
-}
-
-/* Movement */
-@keyframes bubbleUp{
+/* Main animation with sideways drift */
+@keyframes bubbleUpDrift{
   0%{
-    transform:translateY(0) scale(1);
-    opacity:.9;
+    transform:translate(0, 0) scale(.7);
+    opacity:0;
+  }
+  10%{
+    opacity:.8;
   }
   100%{
-    transform:translateY(-140vh) scale(1.8);
+    transform:translate(var(--drift), -140vh) scale(1.6);
     opacity:0;
   }
 }
 
+
+
+
+
+
+
+
+
+@media (max-width:768px){
+
+  /* Reduce bubble count */
+  .hero-bubbles span:nth-child(n+14){
+    display:none;
+  }
+
+  /* Softer drift on mobile */
+  .hero-bubbles span:nth-child(odd){
+    --drift:-18px;
+  }
+  .hero-bubbles span:nth-child(even){
+    --drift:18px;
+  }
+
+  /* Faster exit (battery friendly) */
+  .hero-bubbles span:nth-child(3n){
+    animation-duration:10s;
+  }
+  .hero-bubbles span:nth-child(3n+1){
+    animation-duration:13s;
+  }
+  .hero-bubbles span:nth-child(3n+2){
+    animation-duration:16s;
+  }
+}
 
 
 

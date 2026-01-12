@@ -62,11 +62,38 @@ if (revealItems.length) {
 ===================================================== */
 const animatedItems = document.querySelectorAll(".animate");
 
+let qualityRatingStarted = false;
+
+function startQualityRating(){
+  if (qualityRatingStarted) return;
+  const scoreEl = document.getElementById("qualityRatingScore");
+  const starsFill = document.getElementById("qualityStarsFill");
+  if (!scoreEl || !starsFill) return;
+
+  qualityRatingStarted = true;
+  const start = 4.6;
+  const end = 5.0;
+  const duration = 900;
+  const startTime = performance.now();
+
+  function tick(now){
+    const t = Math.min(1, (now - startTime)/duration);
+    const value = start + (end - start)*t;
+    scoreEl.textContent = value.toFixed(1);
+    starsFill.style.width = `${t*100}%`;
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 if (animatedItems.length) {
   const animObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
+        if (entry.target.id === "quality") {
+          startQualityRating();
+        }
         animObserver.unobserve(entry.target);
       }
     });
@@ -217,26 +244,129 @@ Thank you.
   window.open(`https://wa.me/918974668938?text=${encoded}`, "_blank");
 }
 
+/* =====================================================
+   BUSINESS / BULK ENQUIRY – MODAL POPUP
+===================================================== */
+const businessModal = document.getElementById("businessModal");
+const businessTrigger = document.getElementById("businessTrigger");
+const businessForm = document.getElementById("businessForm");
+const modalClose = businessModal ? businessModal.querySelector(".modal-close") : null;
+const modalBackdrop = businessModal ? businessModal.querySelector(".modal-backdrop") : null;
+
+// Open Modal Function
+function openBusinessModal() {
+  if (businessModal) {
+    businessModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+// Close Modal Function
+function closeBusinessModal() {
+  if (businessModal) {
+    businessModal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+}
+
+// Trigger Button Click
+if (businessTrigger) {
+  businessTrigger.addEventListener("click", openBusinessModal);
+}
+
+// Close Button Click
+if (modalClose) {
+  modalClose.addEventListener("click", closeBusinessModal);
+}
+
+// Backdrop Click
+if (modalBackdrop) {
+  modalBackdrop.addEventListener("click", closeBusinessModal);
+}
+
+// Escape Key to Close
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && businessModal && businessModal.classList.contains("open")) {
+    closeBusinessModal();
+  }
+});
+
+// Auto-open Modal on Page Load (after delay)
+window.addEventListener("load", () => {
+  // Wait for page loader to finish, then show modal after 2 seconds
+  setTimeout(() => {
+    // Check if modal was already shown today (optional - can be removed if you want it to show every time)
+    const lastShown = localStorage.getItem("businessModalLastShown");
+    const today = new Date().toDateString();
+    
+    // Uncomment the next 3 lines if you want it to show only once per day
+    // if (lastShown === today) return;
+    // localStorage.setItem("businessModalLastShown", today);
+    
+    openBusinessModal();
+  }, 2000); // 2 second delay after page load
+});
+
+// Form Submit Handler
+if (businessForm) {
+  businessForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(businessForm);
+    const name = formData.get("name") || "";
+    const phone = formData.get("phone") || "";
+    const type = formData.get("type") || "";
+    const req = formData.get("requirement") || "";
+    const area = formData.get("area") || "";
+    const notes = formData.get("notes") || "";
+
+    const lines = [
+      "Business / Bulk Water Enquiry",
+      "",
+      `Name: ${name}`,
+      `Mobile: ${phone}`,
+      type ? `Business Type: ${type}` : "",
+      req ? `Approx. Requirement: ${req}` : "",
+      area ? `Area / Address: ${area}` : "",
+      notes ? `Notes: ${notes}` : "",
+      "",
+      "Please contact me with plans and pricing."
+    ].filter(Boolean);
+
+    const msg = encodeURIComponent(lines.join("\n"));
+    window.open(`https://wa.me/918974668938?text=${msg}`, "_blank");
+    
+    // Close modal and reset form after submission
+    setTimeout(() => {
+      closeBusinessModal();
+      businessForm.reset();
+    }, 500);
+  });
+}
+
 
 /* ===============================
    CANVAS SETUP
 ================================ */
 const canvas = document.getElementById("bubbleCanvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
 function resize(){
+  if (!canvas) return;
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
 }
-resize();
-window.addEventListener("resize", resize);
+if (canvas){
+  resize();
+  window.addEventListener("resize", resize);
+}
 
 /* ===============================
    BOTTLE CENTER (EMISSION POINT)
    Adjust X/Y to align with bottle
 ================================ */
-let bottleX = () => canvas.width * 0.55;
-let bottleY = () => canvas.height * 0.78;
+let bottleX = () => canvas ? canvas.width * 0.55 : 0;
+let bottleY = () => canvas ? canvas.height * 0.78 : 0;
 
 /* ===============================
    BUBBLE CLASS
@@ -265,6 +395,7 @@ class Bubble{
   }
 
   draw(){
+    if (!ctx) return;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius*this.life, 0, Math.PI*2);
     ctx.fillStyle = `rgba(180,230,255,${this.opacity*this.life})`;
@@ -278,6 +409,7 @@ class Bubble{
 const bubbles = [];
 
 function emitBubble(){
+  if(!canvas || !ctx) return;
   if(bubbles.length < 120){
     bubbles.push(new Bubble(bottleX(), bottleY()));
   }
@@ -286,41 +418,254 @@ function emitBubble(){
 /* ===============================
    MOUSE DISTURBANCE
 ================================ */
-let mouse = {x:0,y:0};
+if (canvas){
+  let mouse = {x:0,y:0};
 
-canvas.addEventListener("mousemove", e=>{
-  const rect = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - rect.left;
-  mouse.y = e.clientY - rect.top;
+  canvas.addEventListener("mousemove", e=>{
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
 
-  bubbles.forEach(b=>{
-    const dx = b.x - mouse.x;
-    const dy = b.y - mouse.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
+    bubbles.forEach(b=>{
+      const dx = b.x - mouse.x;
+      const dy = b.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
 
-    if(dist < 120){
-      b.x += dx * 0.03;
-      b.y += dy * 0.03;
-    }
+      if(dist < 120){
+        b.x += dx * 0.03;
+        b.y += dy * 0.03;
+      }
+    });
   });
-});
+}
 
 /* ===============================
    ANIMATION LOOP
 ================================ */
 function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if (canvas && ctx){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  emitBubble();
+    emitBubble();
 
-  bubbles.forEach((b,i)=>{
-    b.update();
-    b.draw();
-    if(b.dead) bubbles.splice(i,1);
-  });
+    bubbles.forEach((b,i)=>{
+      b.update();
+      b.draw();
+      if(b.dead) bubbles.splice(i,1);
+    });
+  }
 
   requestAnimationFrame(animate);
 }
 
-animate();
+requestAnimationFrame(animate);
 
+/* =====================================================
+   GALLERY LIGHTBOX
+===================================================== */
+const lightbox = document.getElementById("galleryLightbox");
+const lightboxImg = lightbox ? lightbox.querySelector("img") : null;
+const lightboxCaption = lightbox ? lightbox.querySelector(".lightbox-caption") : null;
+const lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
+const lightboxBackdrop = lightbox ? lightbox.querySelector(".lightbox-backdrop") : null;
+
+if (lightbox && lightboxImg && lightboxCaption){
+  document.querySelectorAll(".gallery .img-box img").forEach((img) => {
+    img.style.cursor = "pointer";
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || "";
+      lightboxCaption.textContent = img.dataset.caption || img.alt || "";
+      lightbox.classList.add("open");
+    });
+  });
+
+  const closeLightbox = () => lightbox.classList.remove("open");
+
+  if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+  if (lightboxBackdrop) lightboxBackdrop.addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+}
+
+/* =====================================================
+   GALLERY FILTER BUTTONS
+===================================================== */
+const filterButtons = document.querySelectorAll(".gallery-filter-btn");
+const galleryItems = document.querySelectorAll(".gallery .img-box");
+
+if (filterButtons.length && galleryItems.length){
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const value = btn.dataset.filter || "all";
+
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      galleryItems.forEach(box => {
+        const type = box.dataset.type || "all";
+        const show = value === "all" || value === type;
+        box.style.display = show ? "block" : "none";
+      });
+    });
+  });
+}
+
+/* =====================================================
+   MULTI-LANGUAGE (EN / HI)
+===================================================== */
+const translations = {
+  hi: {
+    nav_home: "होम",
+    nav_products: "प्रोडक्ट्स",
+    nav_quality: "क्वालिटी",
+    nav_reviews: "रिव्यू",
+    nav_faq: "प्रश्नोत्तर",
+    nav_contact: "संपर्क",
+
+    products_title: "हमारे प्रोडक्ट्स",
+    products_subtitle: "शुद्ध • स्वच्छ • किफायती पैकेज्ड ड्रिंकिंग वाटर",
+    prod_20l_title: "20 लीटर जार",
+    prod_20l_desc: "घर और ऑफिस के लिए बेहतर",
+    prod_10l_title: "10 लीटर जार",
+    prod_10l_desc: "रीफिल के लिए उपलब्ध",
+    prod_1l_title: "1 लीटर बोतल",
+    prod_1l_desc: "यात्रा और रोज़ाना उपयोग के लिए",
+    prod_500_title: "500 ml बोतल",
+    prod_500_desc: "इवेंट और डेली यूज़ के लिए",
+    btn_order_now: "अभी ऑर्डर करें",
+
+    quality_title: "क्वालिटी और सर्टिफिकेशन",
+    quality_subtitle: "हर जार आपके पास पहुँचने से पहले कई सेफ्टी चेक से गुजरता है।",
+    quality_ai_score: "AI क्वालिटी स्कोर",
+
+    reviews_title: "हमारे ग्राहकों की राय",
+    reviews_subtitle: "मुज़फ्फरपुर के घरों, दुकानों और ऑफ़िसों की पसंद।",
+
+    faq_title: "अक्सर पूछे जाने वाले सवाल",
+
+    business_title: "बिज़नेस / बल्क इंक्वायरी",
+    business_subtitle: "अपनी ज़रूरत शेयर करें, हम आपके लिए बेस्ट प्लान सजेस्ट करेंगे।",
+
+    contact_title: "संपर्क करें",
+    contact_tagline: "बस एक कॉल या मैसेज की दूरी पर।",
+    contact_sub: "नए जार ऑर्डर करने, रीफिल शेड्यूल करने या कोई भी सवाल पूछने के लिए संपर्क करें – हमारी टीम आमतौर पर कार्य समय में 5–10 मिनट के अंदर जवाब देती है।",
+
+    service_area_title: "सर्विस एरिया और टाइमिंग",
+    service_time_text: "डेली डिलीवरी • सुबह 7:00 बजे – रात 8:00 बजे",
+    area_musahri: "मुशहरी",
+    area_muzaffarpur: "मुज़फ्फरपुर सिटी",
+    area_brahmpura: "ब्रह्मपुरा",
+    area_ahiyapur: "अहियापुर",
+    area_more: "नज़दीकी इलाक़े (रिक्वेस्ट पर)"
+  }
+};
+
+const langButtons = document.querySelectorAll(".lang-btn");
+const i18nNodes = document.querySelectorAll("[data-i18n]");
+
+const defaultLang = localStorage.getItem("preferredLang") || "en";
+
+function setLanguage(lang){
+  document.documentElement.setAttribute("lang", lang);
+  localStorage.setItem("preferredLang", lang);
+
+  langButtons.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.lang === lang);
+  });
+
+  if (lang === "en") {
+    // Reset to English (original text)
+    i18nNodes.forEach(node => {
+      const key = node.getAttribute("data-i18n");
+      const original = node.getAttribute("data-original") || node.textContent;
+      if (!node.hasAttribute("data-original")) {
+        node.setAttribute("data-original", original);
+      }
+      node.textContent = node.getAttribute("data-original");
+    });
+    return;
+  }
+
+  const dict = translations[lang];
+  if (!dict) return;
+
+  i18nNodes.forEach(node => {
+    const key = node.getAttribute("data-i18n");
+    if (!node.hasAttribute("data-original")) {
+      node.setAttribute("data-original", node.textContent);
+    }
+    if (dict[key]){
+      node.textContent = dict[key];
+    }
+  });
+}
+
+// Initialize language on page load
+if (defaultLang !== "en") {
+  setLanguage(defaultLang);
+}
+
+if (langButtons.length){
+  langButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      setLanguage(btn.dataset.lang || "en");
+    });
+  });
+}
+
+/* ===============================
+   ABOUT SECTION - STATS COUNTER
+===================================================== */
+function formatNumber(num) {
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1) + 'M+';
+  } else if (num >= 1000) {
+    return (num / 1000).toFixed(0) + 'K+';
+  } else if (num % 1 === 0) {
+    return num.toString();
+  } else {
+    return num.toFixed(1);
+  }
+}
+
+function animateCounter(element, target, duration = 2000) {
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+
+  const updateCounter = () => {
+    current += increment;
+    if (current < target) {
+      element.textContent = formatNumber(current);
+      requestAnimationFrame(updateCounter);
+    } else {
+      element.textContent = formatNumber(target);
+    }
+  };
+
+  updateCounter();
+}
+
+// Observe stats section for counter animation
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statNumbers = entry.target.querySelectorAll('.stat-number');
+      statNumbers.forEach(stat => {
+        const target = parseFloat(stat.dataset.count);
+        if (target && !stat.classList.contains('counted')) {
+          stat.classList.add('counted');
+          animateCounter(stat, target, 2000);
+        }
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+const aboutSection = document.getElementById('about');
+if (aboutSection) {
+  statsObserver.observe(aboutSection);
+}

@@ -16,11 +16,18 @@
 <nav class="navbar">
   <div class="logo">PureDrop</div>
 
+  <div class="lang-switch" id="langSwitch">
+    <button type="button" data-lang="en" class="lang-btn active">EN</button>
+    <button type="button" data-lang="hi" class="lang-btn">हिंदी</button>
+  </div>
+
   <ul class="nav-links" id="navLinks">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#products">Our Products</a></li>
-    <li><a href="#about">About Us</a></li>
-    <li><a href="#contact">Contact Us</a></li>
+    <li><a href="#home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#products" data-i18n="nav_products">Products</a></li>
+    <li><a href="#quality" data-i18n="nav_quality">Quality</a></li>
+    <li><a href="#reviews" data-i18n="nav_reviews">Reviews</a></li>
+    <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
   </ul>
 
   <!-- Menu / Cross Button -->
@@ -33,7 +40,7 @@
 
 
 <!-- ================= FLOATING BUTTONS ================= -->
-<div class="float-box">
+<div class="float-box" id="floatBox">
 
   <!-- WhatsApp -->
   <a href="https://wa.me/918974668938?text=Hello%20I%20want%20to%20order%20water"
@@ -144,9 +151,9 @@
 
 <!-- ================= PRODUCTS ================= -->
 <section id="products" class="products-section animate">
-  <h2>Our Products</h2>
+  <h2 data-i18n="products_title">Our Products</h2>
   <p class="section-subtitle">
-    Pure • Hygienic • Affordable Drinking Water Options
+    <span data-i18n="products_subtitle">Pure • Hygienic • Affordable Drinking Water Options</span>
   </p>
 
   <div class="products">
@@ -154,34 +161,34 @@
     <!-- 20L -->
     <div class="card popular">
       <span class="badge">Most Popular</span>
-      <h3>20 Litre Jar</h3>
+      <h3 data-i18n="prod_20l_title">20 Litre Jar</h3>
       <div class="price">₹90</div>
-      <p class="desc">Ideal for Homes & Offices</p>
-      <a href="#contact" class="order-btn">Order Now</a>
+      <p class="desc" data-i18n="prod_20l_desc">Ideal for Homes & Offices</p>
+      <a href="#contact" class="order-btn" data-i18n="btn_order_now">Order Now</a>
     </div>
 
     <!-- 10L -->
     <div class="card">
-      <h3>10 Litre Jar</h3>
+      <h3 data-i18n="prod_10l_title">10 Litre Jar</h3>
       <div class="price">₹60</div>
-      <p class="desc">Refill Available</p>
-      <a href="#contact" class="order-btn">Order Now</a>
+      <p class="desc" data-i18n="prod_10l_desc">Refill Available</p>
+      <a href="#contact" class="order-btn" data-i18n="btn_order_now">Order Now</a>
     </div>
 
     <!-- 1L -->
     <div class="card">
-      <h3>1 Litre Bottle</h3>
+      <h3 data-i18n="prod_1l_title">1 Litre Bottle</h3>
       <div class="price">₹20</div>
-      <p class="desc">Travel & Outdoor Use</p>
-      <a href="#contact" class="order-btn">Order Now</a>
+      <p class="desc" data-i18n="prod_1l_desc">Travel & Outdoor Use</p>
+      <a href="#contact" class="order-btn" data-i18n="btn_order_now">Order Now</a>
     </div>
 
     <!-- 500ml -->
     <div class="card">
-      <h3>500 ml Bottle</h3>
+      <h3 data-i18n="prod_500_title">500 ml Bottle</h3>
       <div class="price">₹10</div>
-      <p class="desc">Events & Daily Use</p>
-      <a href="#contact" class="order-btn">Order Now</a>
+      <p class="desc" data-i18n="prod_500_desc">Events & Daily Use</p>
+      <a href="#contact" class="order-btn" data-i18n="btn_order_now">Order Now</a>
     </div>
 
   </div>
@@ -191,102 +198,664 @@
 
 
 
-<!-- ================= BOTTLE GALLERY ================= -->
 <!-- ================= BOTTLE GALLERY ================= -->
 <section id="gallery" class="gallery-section animate">
 
   <h2>Our Water Bottles</h2>
   <p class="section-subtitle">
-    Hygienic • Certified • Premium Quality Packaging
+    Choose the perfect size for home, office, shop or events.
   </p>
+
+  <!-- Simple filters -->
+  <div class="gallery-filters">
+    <button class="gallery-filter-btn active" data-filter="all">All</button>
+    <button class="gallery-filter-btn" data-filter="jar">20L / 10L / 5L Jars</button>
+    <button class="gallery-filter-btn" data-filter="bottle">1L / 500ml / 250ml Bottles</button>
+  </div>
 
   <div class="gallery">
 
-    <div class="img-box">
-      <img src="images/NEW 3.png" alt="20L Water Bottle">
-      <span class="img-label">20L Can</span>
+    <div class="img-box" data-type="jar">
+      <img src="https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=800" alt="20L Water Jar" data-caption="20L Jar – Ideal for homes and small offices">
+      <div class="img-info">
+        <span class="img-label">20L Can</span>
+        <span class="img-note">Best for family & office dispensers</span>
+      </div>
     </div>
 
-    <div class="img-box">
-      <img src="images/NEW 2.jpg" alt="10L Water Bottle">
-      <span class="img-label">10L Bottle</span>
+    <div class="img-box" data-type="jar">
+      <img src="https://images.pexels.com/photos/17722/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800" alt="10L Water Bottle" data-caption="10L Bottle – Perfect for family trips">
+      <div class="img-info">
+        <span class="img-label">10L Bottle</span>
+        <span class="img-note">Portable option for short trips</span>
+      </div>
     </div>
 
-    <div class="img-box">
-      <img src="images/NEW 5.jpeg" alt="5L Water Bottle">
-      <span class="img-label">5L Bottle</span>
+    <div class="img-box" data-type="jar">
+      <img src="https://images.pexels.com/photos/327090/pexels-photo-327090.jpeg?auto=compress&cs=tinysrgb&w=800" alt="5L Water Bottle" data-caption="5L Bottle – Backup water for any room">
+      <div class="img-info">
+        <span class="img-label">5L Bottle</span>
+        <span class="img-note">Extra storage for any corner</span>
+      </div>
     </div>
 
-    <div class="img-box">
-      <img src="images/NEW 8.jpeg" alt="1L Water Bottle">
-      <span class="img-label">1L Bottle</span>
+    <div class="img-box" data-type="bottle">
+      <img src="https://images.pexels.com/photos/4165289/pexels-photo-4165289.jpeg?auto=compress&cs=tinysrgb&w=800" alt="1L Water Bottle" data-caption="1L Bottle – Daily carry and travel">
+      <div class="img-info">
+        <span class="img-label">1L Bottle</span>
+        <span class="img-note">Daily use & travel friendly</span>
+      </div>
     </div>
 
-    <div class="img-box">
-      <img src="images/NEW 3.png" alt="500ml Water Bottle">
-      <span class="img-label">500ml</span>
+    <div class="img-box" data-type="bottle">
+      <img src="https://images.pexels.com/photos/327095/pexels-photo-327095.jpeg?auto=compress&cs=tinysrgb&w=800" alt="500ml Water Bottle" data-caption="500ml – Events, offices and guests">
+      <div class="img-info">
+        <span class="img-label">500ml</span>
+        <span class="img-note">Ideal for offices & meetings</span>
+      </div>
     </div>
 
-    <div class="img-box">
-      <img src="images/NEW 3.png" alt="250ml Water Bottle">
-      <span class="img-label">250ml</span>
+    <div class="img-box" data-type="bottle">
+      <img src="https://images.pexels.com/photos/416529/pexels-photo-416529.jpeg?auto=compress&cs=tinysrgb&w=800" alt="250ml Water Bottle" data-caption="250ml – Ideal for functions and parties">
+      <div class="img-info">
+        <span class="img-label">250ml</span>
+        <span class="img-note">Perfect for functions & events</span>
+      </div>
     </div>
 
   </div>
 </section>
 
+<!-- ================= QUALITY & CERTIFICATION ================= -->
+<section id="quality" class="quality-section animate">
+  <h2 data-i18n="quality_title">Quality & Certification</h2>
+  <p class="section-subtitle">
+    <span data-i18n="quality_subtitle">Every jar of water passes through multiple safety checks before it reaches you.</span>
+  </p>
+
+  <!-- AI-style rating summary -->
+  <div class="quality-rating" id="qualityRating">
+    <div class="rating-header">
+      <span class="rating-score" id="qualityRatingScore">4.6</span>
+      <span class="rating-max">/5.0</span>
+      <span class="rating-ai-tag" data-i18n="quality_ai_score">AI Quality Score</span>
+    </div>
+    <div class="rating-stars-row">
+      <div class="stars-outline">
+        <span>★★★★★</span>
+        <div class="stars-fill" id="qualityStarsFill">
+          <span>★★★★★</span>
+        </div>
+      </div>
+      <span class="rating-badge">Based on water tests & customer feedback</span>
+    </div>
+  </div>
+
+  <!-- Animated character intro -->
+  <div class="quality-intro">
+    <div class="quality-mascot" aria-hidden="true">
+      <div class="mascot-face">
+        <span class="mascot-eye left"></span>
+        <span class="mascot-eye right"></span>
+        <span class="mascot-smile"></span>
+      </div>
+      <div class="mascot-drop"></div>
+    </div>
+    <div class="quality-intro-text">
+      <p class="quality-intro-title">Hi! I’m Aqua, your quality inspector.</p>
+      <p class="quality-intro-body">
+        Follow each glowing step below to see how your water becomes safe, tasty and ready to drink.
+      </p>
+    </div>
+  </div>
+
+  <div class="quality-steps">
+    <div class="quality-step">
+      <span class="step-badge">01</span>
+      <h3>Multi‑Stage Filtration</h3>
+      <p>Raw water passes through sand, carbon and micron filters to remove dust, odor and visible particles.</p>
+    </div>
+    <div class="quality-step">
+      <span class="step-badge">02</span>
+      <h3>RO + UV + Ozone</h3>
+      <p>RO membranes remove dissolved salts, UV kills germs and Ozone keeps stored water fresh and safe.</p>
+    </div>
+    <div class="quality-step">
+      <span class="step-badge">03</span>
+      <h3>Lab Testing</h3>
+      <p>Regular internal and external lab tests ensure BIS‑compliant TDS, pH and microbiological standards.</p>
+    </div>
+    <div class="quality-step">
+      <span class="step-badge">04</span>
+      <h3>Sanitized Jars</h3>
+      <p>Each jar is washed, disinfected and rinsed with RO water before filling and tamper‑evident sealing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CUSTOMER REVIEWS ================= -->
+<section id="reviews" class="reviews-section animate">
+  <h2 data-i18n="reviews_title">What Our Customers Say</h2>
+  <p class="section-subtitle">
+    <span data-i18n="reviews_subtitle">Trusted by homes, shops and offices in Muzaffarpur.</span>
+  </p>
+
+  <div class="reviews-grid">
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">R</div>
+        <div class="review-head-text">
+          <p class="review-name">Rahul Verma</p>
+          <p class="review-role">Residential Customer</p>
+        </div>
+        <span class="review-tag">Home</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“Water quality is excellent and delivery is always on time. We have been using PureDrop for years.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">AT</div>
+        <div class="review-head-text">
+          <p class="review-name">Agarwal Traders</p>
+          <p class="review-role">Office Supply</p>
+        </div>
+        <span class="review-tag">Office</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“Very professional service for our office. Clean jars, good taste and quick support on WhatsApp.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">RE</div>
+      <div class="review-head-text">
+          <p class="review-name">Royal Events</p>
+          <p class="review-role">Event Partner</p>
+        </div>
+        <span class="review-tag">Events</span>
+      </div>
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">“We order in bulk for events. Pricing is fair and they manage large quantities without delays.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">PS</div>
+        <div class="review-head-text">
+          <p class="review-name">Priya Sharma</p>
+          <p class="review-role">Shop Owner</p>
+        </div>
+        <span class="review-tag">Shop</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“Best water supplier in Muzaffarpur! My customers love the quality and I get regular deliveries without any hassle.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">HR</div>
+        <div class="review-head-text">
+          <p class="review-name">Hotel Royal</p>
+          <p class="review-role">Hotel & Restaurant</p>
+        </div>
+        <span class="review-tag">Hotel</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“We use PureDrop for our hotel and restaurant. Consistent quality, timely delivery, and excellent customer service.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">SK</div>
+        <div class="review-head-text">
+          <p class="review-name">Sunshine Kids</p>
+          <p class="review-role">School & Coaching</p>
+        </div>
+        <span class="review-tag">School</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“Safe and pure water for our students. Parents trust PureDrop and we've been using their service for 3 years now.”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">AK</div>
+        <div class="review-head-text">
+          <p class="review-name">Anjali Kumar</p>
+          <p class="review-role">Residential Customer</p>
+        </div>
+        <span class="review-tag">Home</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“PureDrop water tastes great and is very affordable. The delivery person is always polite and punctual. Highly recommended!”</p>
+    </article>
+
+    <article class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">MK</div>
+        <div class="review-head-text">
+          <p class="review-name">Mohan Kumar</p>
+          <p class="review-role">Family Customer</p>
+        </div>
+        <span class="review-tag">Home</span>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">“We switched to PureDrop 2 years ago and never looked back. Clean water, good price, and reliable service every time.”</p>
+    </article>
+  </div>
+</section>
+
+<!-- ================= FAQ ACCORDION ================= -->
+<section id="faq" class="faq-section animate">
+  <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+  <p class="section-subtitle">
+    <span>Got questions? We've got answers. Find everything you need to know about our water service.</span>
+  </p>
+
+  <div class="faq-list">
+    <details class="faq-item" open>
+      <summary>
+        <span class="faq-number">01</span>
+        <span class="faq-question">Is your water safe for children and seniors?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes. Our water is processed through RO, UV and Ozone and tested regularly so it is safe for all age groups when consumed as part of a balanced diet.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">02</span>
+        <span class="faq-question">Do you charge a deposit for 20L jars?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes, a one‑time refundable deposit is taken per jar. You get it back when you return all jars in usable condition.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">03</span>
+        <span class="faq-question">What are your regular delivery timings?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Standard deliveries are done between 7:00 AM – 8:00 PM. For urgent requirements you can call or WhatsApp us directly.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">04</span>
+        <span class="faq-question">Do you supply water for offices, shops and events?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes. Use the Business / Bulk Enquiry form below or message us on WhatsApp with your approximate daily or event requirement.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">05</span>
+        <span class="faq-question">How do I place an order?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>You can order by calling us at <strong>+91 8974668938</strong>, sending a WhatsApp message, or using the contact form on this website. We'll confirm your order and delivery time.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">06</span>
+        <span class="faq-question">What is the minimum order quantity?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>For home delivery, minimum order is 1 jar. For bulk orders (offices, events), please contact us for special pricing and minimum quantities.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">07</span>
+        <span class="faq-question">Is the water tested and certified?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes. Our water undergoes regular lab testing and meets BIS (Bureau of Indian Standards) guidelines. We maintain strict quality control at every step.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="faq-number">08</span>
+        <span class="faq-question">Do you offer subscription or monthly plans?</span>
+        <span class="faq-icon">+</span>
+      </summary>
+      <div class="faq-content">
+        <p>Yes, we offer flexible subscription plans for regular customers. Contact us to discuss daily, weekly, or monthly delivery schedules with special pricing.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ================= BUSINESS / BULK ENQUIRY ================= -->
+<section id="business" class="business-section animate">
+  <h2 data-i18n="business_title">Business / Bulk Enquiry</h2>
+  <p class="section-subtitle">
+    <span data-i18n="business_subtitle">Share your requirement and our team will call you with the best plan for your usage.</span>
+  </p>
+
+  <div class="business-benefits">
+    <div class="benefit-item">
+      <span class="benefit-icon">💼</span>
+      <span>Special Pricing</span>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">🚚</span>
+      <span>Flexible Delivery</span>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">📞</span>
+      <span>Quick Response</span>
+    </div>
+  </div>
+
+  <div class="business-trigger-wrapper">
+    <button type="button" id="businessTrigger" class="btn primary business-trigger-btn">
+      <span>Open Business Enquiry Form</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ================= BUSINESS MODAL POPUP ================= -->
+<div id="businessModal" class="business-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-container">
+    <button type="button" class="modal-close" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24" fill="currentColor">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+      </svg>
+    </button>
+
+    <div class="modal-header">
+      <h2 data-i18n="business_title">Business / Bulk Enquiry</h2>
+      <p class="modal-subtitle" data-i18n="business_subtitle">Share your requirement and our team will call you with the best plan for your usage.</p>
+    </div>
+
+    <div class="business-benefits">
+      <div class="benefit-item">
+        <span class="benefit-icon">💼</span>
+        <span>Special Pricing</span>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">🚚</span>
+        <span>Flexible Delivery</span>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">📞</span>
+        <span>Quick Response</span>
+      </div>
+    </div>
+
+    <form id="businessForm" class="business-form">
+    <div class="form-row">
+      <label class="form-field">
+        <span class="field-label">
+          <span class="field-icon">👤</span>
+          Full Name
+        </span>
+        <input type="text" name="name" placeholder="Enter your full name" required>
+      </label>
+      <label class="form-field">
+        <span class="field-label">
+          <span class="field-icon">📱</span>
+          Mobile Number
+        </span>
+        <input type="tel" name="phone" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label class="form-field">
+        <span class="field-label">
+          <span class="field-icon">🏢</span>
+          Business Type
+        </span>
+        <select name="type" required>
+          <option value="">Select your business type</option>
+          <option>Office</option>
+          <option>Shop / Showroom</option>
+          <option>Hotel / Restaurant</option>
+          <option>School / Coaching</option>
+          <option>Event / Function</option>
+          <option>Other</option>
+        </select>
+      </label>
+      <label class="form-field">
+        <span class="field-label">
+          <span class="field-icon">💧</span>
+          Approx. Daily Requirement
+        </span>
+        <input type="text" name="requirement" placeholder="e.g. 6 x 20L jars per day">
+      </label>
+    </div>
+
+    <label class="form-full form-field">
+      <span class="field-label">
+        <span class="field-icon">📍</span>
+        Address / Area
+      </span>
+      <input type="text" name="area" placeholder="Your locality, landmark, city">
+    </label>
+
+    <label class="form-full form-field">
+      <span class="field-label">
+        <span class="field-icon">📝</span>
+        Additional Notes
+      </span>
+      <textarea name="notes" rows="4" placeholder="Preferred timings, start date, special instructions…"></textarea>
+    </label>
+
+    <div class="form-submit-wrapper">
+      <button type="submit" class="btn primary business-submit">
+        <span>Send Enquiry on WhatsApp</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+          <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326z"/>
+        </svg>
+      </button>
+      <p class="form-note">We'll respond within 5-10 minutes during business hours</p>
+    </div>
+  </form>
+  </div>
+</div>
 
 <!-- ================= ABOUT ================= -->
-<section id="about">
-  <h2>About Us</h2>
-  <p class="center-text">
-    We are a reliable and certified packaged drinking water supplier,
-    committed to delivering pure, safe, and hygienic water to homes,
-    offices, and commercial establishments. With over a decade of
-    experience in the industry, we follow strict quality standards,
-    advanced purification processes, and regular testing to ensure
-    every drop meets the highest safety benchmarks.
-    <br><br>
-    Our mission is to provide healthy hydration with consistent quality,
-    timely delivery, and customer-focused service that you can trust
-    every day.
-  </p>
+<section id="about" class="animate">
+  <div class="about-container">
+    <h2>About Us</h2>
+    <p class="about-intro">
+      We are a reliable and certified packaged drinking water supplier,
+      committed to delivering pure, safe, and hygienic water to homes,
+      offices, and commercial establishments. With over a decade of
+      experience in the industry, we follow strict quality standards,
+      advanced purification processes, and regular testing to ensure
+      every drop meets the highest safety benchmarks.
+    </p>
+
+    <!-- Stats Section -->
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-number" data-count="10">0</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-number" data-count="5000">0</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💧</div>
+        <div class="stat-number" data-count="100000">0</div>
+        <div class="stat-label">Liters Delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-number" data-count="4.8">0</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+    </div>
+
+    <!-- Mission, Vision, Values -->
+    <div class="about-values">
+      <div class="value-card">
+        <div class="value-icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>To provide healthy hydration with consistent quality, timely delivery, and customer-focused service that you can trust every day.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">👁️</div>
+        <h3>Our Vision</h3>
+        <p>To become the most trusted and preferred drinking water supplier in the region, setting new benchmarks in quality and service excellence.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💎</div>
+        <h3>Our Values</h3>
+        <p>Quality, Purity, Trust, and Customer Satisfaction are the core values that drive everything we do.</p>
+      </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="about-features">
+      <h3 class="features-title">Why Choose Us?</h3>
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">✅</span>
+          <div class="feature-content">
+            <h4>Certified Quality</h4>
+            <p>BIS compliant, lab tested, and regularly monitored for safety</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🚚</span>
+          <div class="feature-content">
+            <h4>Timely Delivery</h4>
+            <p>Fast and reliable delivery service at your doorstep</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">💰</span>
+          <div class="feature-content">
+            <h4>Affordable Pricing</h4>
+            <p>Competitive rates with special bulk order discounts</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🛡️</span>
+          <div class="feature-content">
+            <h4>Hygienic Process</h4>
+            <p>Sanitized jars and tamper-evident sealing for safety</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📞</span>
+          <div class="feature-content">
+            <h4>24/7 Support</h4>
+            <p>Round-the-clock customer service and support</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🌱</span>
+          <div class="feature-content">
+            <h4>Eco-Friendly</h4>
+            <p>Reusable jars and sustainable packaging practices</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= CONTACT ================= -->
 <section id="contact" class="contact animate">
-  <h2>Contact Us</h2>
+  <h2 data-i18n="contact_title">Contact Us</h2>
 
   <div class="contact-box">
+    <div class="contact-meta">
+      <p class="contact-tagline" data-i18n="contact_tagline">We’re just a call or message away.</p>
+      <p class="contact-sub">
+        <span data-i18n="contact_sub">
+          Order new jars, schedule refills or ask any question — our team usually replies within
+          <strong>5–10 minutes</strong> during working hours.
+        </span>
+      </p>
+    </div>
 
-    <!-- Call -->
-    <a href="tel:+918974668938" class="contact-item call-btn">
-      <!-- Telephone Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58z"/>
-      </svg>
-      <span>Call Now</span>
-    </a>
+    <div class="contact-actions">
+      <!-- Call -->
+      <a href="tel:+918974668938" class="contact-item call-btn">
+        <!-- Telephone Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58z"/>
+        </svg>
+        <div class="contact-text">
+          <span class="contact-title">Call for Instant Order</span>
+          <span class="contact-subtext">Speak directly with our support team</span>
+        </div>
+      </a>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/918974668938" target="_blank" class="contact-item whatsapp-btn">
-      <!-- WhatsApp Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326z"/>
-      </svg>
-      <span>Chat on WhatsApp</span>
-    </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.me/918974668938" target="_blank" class="contact-item whatsapp-btn">
+        <!-- WhatsApp Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326z"/>
+        </svg>
+        <div class="contact-text">
+          <span class="contact-title">WhatsApp for Quick Reply</span>
+          <span class="contact-subtext">Send your location & jar requirement</span>
+        </div>
+      </a>
 
-    <!-- Auto Directions -->
-    <a href="https://www.google.com/maps/dir/?api=1&destination=26.1261087,85.3953473"
-       target="_blank"
-       class="contact-item call-btn">
-      <!-- Direction Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <path d="M15.804.99a.5.5 0 0 0-.56-.066L.99 7.978a.5.5 0 0 0 .026.93l5.56 2.186 2.186 5.56a.5.5 0 0 0 .93.026L15.87 1.55a.5.5 0 0 0-.066-.56z"/>
-      </svg>
-      <span>Get Directions</span>
-    </a>
+      <!-- Auto Directions -->
+      <a href="https://www.google.com/maps/dir/?api=1&destination=26.1261087,85.3953473"
+         target="_blank"
+         class="contact-item call-btn">
+        <!-- Direction Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <path d="M15.804.99a.5.5 0 0 0-.56-.066L.99 7.978a.5.5 0 0 0 .026.93l5.56 2.186 2.186 5.56a.5.5 0 0 0 .93.026L15.87 1.55a.5.5 0 0 0-.066-.56z"/>
+        </svg>
+        <div class="contact-text">
+          <span class="contact-title">Get Directions</span>
+          <span class="contact-subtext">Open turn‑by‑turn navigation to our plant</span>
+        </div>
+      </a>
+    </div>
 
+  </div>
+
+  <!-- Service Areas & Timings -->
+  <div class="service-info">
+    <div class="service-header">
+      <h3 data-i18n="service_area_title">Service Areas & Timings</h3>
+      <p class="service-time" data-i18n="service_time_text">Daily delivery • 7:00 AM – 8:00 PM</p>
+    </div>
+    <div class="service-chips">
+      <span class="chip" data-i18n="area_musahri">Musahri</span>
+      <span class="chip" data-i18n="area_muzaffarpur">Muzaffarpur City</span>
+      <span class="chip" data-i18n="area_brahmpura">Brahmpura</span>
+      <span class="chip" data-i18n="area_ahiyapur">Ahiyapur</span>
+      <span class="chip" data-i18n="area_more">Nearby areas on request</span>
+    </div>
   </div>
 
   <!-- Google Map -->
@@ -309,9 +878,15 @@
   </div>
 </footer>
 
-<section>
-
-
+<!-- GALLERY LIGHTBOX OVERLAY -->
+<div id="galleryLightbox" class="lightbox">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-inner">
+    <button class="lightbox-close" aria-label="Close image">&times;</button>
+    <img src="" alt="">
+    <p class="lightbox-caption"></p>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

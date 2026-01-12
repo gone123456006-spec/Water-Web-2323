@@ -2586,6 +2586,7 @@ h2{
   opacity:0;
   transition:transform .5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .5s ease;
   z-index:1;
+  box-sizing:border-box;
 }
 
 .business-modal.open .modal-container{
@@ -2740,39 +2741,103 @@ h2{
 
   /* Modal Mobile Styles */
   .business-modal{
-    padding:10px;
+    padding:0;
+    align-items:flex-start;
+    overflow-y:auto;
+  }
+
+  .business-modal.open{
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+
+  .modal-backdrop{
+    position:fixed;
   }
 
   .modal-container{
     border-radius:20px;
+    width:calc(100% - 20px);
+    max-width:calc(100% - 20px);
+    margin:0 auto;
+    max-height:calc(100vh - 40px);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
 
   .modal-header{
-    padding:32px 20px 20px;
+    padding:24px 16px 16px;
   }
 
   .modal-header h2{
-    font-size:24px;
+    font-size:22px;
+    margin-bottom:8px;
   }
 
   .modal-subtitle{
-    font-size:14px;
+    font-size:13px;
+    line-height:1.5;
   }
 
   .modal-close{
-    top:12px;
-    right:12px;
-    width:36px;
-    height:36px;
+    top:10px;
+    right:10px;
+    width:32px;
+    height:32px;
+    background:rgba(15,23,42,.12);
+  }
+
+  .modal-close svg{
+    width:18px;
+    height:18px;
   }
 
   .business-modal .business-benefits{
-    margin:20px 20px;
-    gap:10px;
+    margin:16px 16px;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .business-modal .business-benefits .benefit-item{
+    font-size:12px;
+    padding:6px 12px;
+    flex:1 1 auto;
+    min-width:fit-content;
   }
 
   .business-modal .business-form{
-    padding:24px 20px 32px;
+    padding:20px 16px 24px;
+  }
+
+  .business-modal .form-row{
+    gap:12px;
+    margin-bottom:12px;
+  }
+
+  .business-modal .form-field{
+    margin-bottom:12px;
+  }
+
+  .business-modal .field-label{
+    font-size:13px;
+    margin-bottom:6px;
+  }
+
+  .business-modal .business-form input,
+  .business-modal .business-form select,
+  .business-modal .business-form textarea{
+    padding:12px 14px;
+    font-size:14px;
+  }
+
+  .business-modal .form-submit-wrapper{
+    margin-top:20px;
+  }
+
+  .business-modal .business-submit{
+    width:100%;
+    padding:14px 24px;
+    font-size:15px;
   }
 }
 
